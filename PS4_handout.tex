@@ -1,0 +1,499 @@
+\documentclass[11pt,addpoints,answers]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amsfonts}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{url}
+\usepackage{xfrac}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{paralist}
+\usepackage{epstopdf}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage{fancyvrb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{float}
+\usepackage{paralist}
+\usepackage[svgname]{xcolor}
+\usepackage{enumerate}
+\usepackage{array}
+\usepackage{times}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{environ}
+\usepackage{times}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage{listings}
+\usepackage{parskip} % For NIPS style paragraphs.
+\usepackage[compact]{titlesec} % Less whitespace around titles
+\usepackage[inline]{enumitem} % For inline enumerate* and itemize*
+\usepackage{datetime}
+\usepackage{comment}
+% \usepackage{minted}
+\usepackage{lastpage}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{shapes,decorations,bayesnet}
+%\usepackage{framed}
+\usepackage{booktabs}
+\usepackage{cprotect}
+\usepackage{xcolor}
+\usepackage{verbatimbox}
+\usepackage[many]{tcolorbox}
+\usepackage{cancel}
+\usepackage{wasysym}
+\usepackage{mdframed}
+\usepackage{subcaption}
+\usetikzlibrary{shapes.geometric}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting for \CorrectChoice of "exam" %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\CorrectChoiceEmphasis{}
+\checkedchar{\blackcircle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Better numbering                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Common Math Commands                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{mathabbreviations.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Code highlighting with listings         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+\definecolor{light-gray}{gray}{0.95}
+
+\newcommand{\MYhref}[3][blue]{\href{#2}{\color{#1}{#3}}}%
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstdefinelanguage{Shell}{
+  keywords={tar, cd, make},
+  %keywordstyle=\color{bluekeywords}\bfseries,
+  alsoletter={+},
+  ndkeywords={python, py, javac, java, gcc, c, g++, cpp, .txt, octave, m, .tar},
+  %ndkeywordstyle=\color{bluekeywords}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]",
+  backgroundcolor = \color{light-gray}
+}
+
+\lstset{columns=fixed, basicstyle=\ttfamily,
+    backgroundcolor=\color{light-gray},xleftmargin=0.5cm,frame=tlbr,framesep=4pt,framerule=0pt}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom box for highlights               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define box and box title style
+\tikzstyle{mybox} = [fill=blue!10, very thick,
+    rectangle, rounded corners, inner sep=1em, inner ysep=1em]
+
+% \newcommand{\notebox}[1]{
+% \begin{tikzpicture}
+% \node [mybox] (box){%
+%     \begin{minipage}{\textwidth}
+%     #1
+%     \end{minipage}
+% };
+% \end{tikzpicture}%
+% }
+
+\NewEnviron{notebox}{
+\begin{tikzpicture}
+\node [mybox] (box){
+    \begin{minipage}{\textwidth}
+        \BODY
+    \end{minipage}
+};
+\end{tikzpicture}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands showing / hiding solutions     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% To HIDE SOLUTIONS (to post at the website for students), set this value to 0: \def\issoln{0}
+\def\issoln{0}
+% Some commands to allow solutions to be embedded in the assignment file.
+\ifcsname issoln\endcsname \else \def\issoln{0} \fi
+% Default to an empty solutions environ.
+\NewEnviron{soln}{}{}
+% Default to an empty qauthor environ.
+\NewEnviron{qauthor}{}{}
+% Default to visible (but empty) solution box.
+\newtcolorbox[]{studentsolution}[1][]{%
+    breakable,
+    enhanced,
+    colback=white,
+    title=Solution,
+    #1
+}
+
+\if\issoln 1
+% Otherwise, include solutions as below.
+\RenewEnviron{soln}{
+    \leavevmode\color{red}\ignorespaces
+    \textbf{Solution} \BODY
+}{}
+\fi
+
+\if\issoln 1
+% Otherwise, include solutions as below.
+\RenewEnviron{solution}{}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands for customizing the assignment %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\courseNum}{\href{https://geometric3d.github.io}{16822}}
+\newcommand{\courseName}{\href{https://geometric3d.github.io}{Geometry-based Methods in Vision}}
+\newcommand{\courseSem}{\href{https://geometric3d.github.io}{Fall 2022}}
+\newcommand{\courseUrl}{\url{https://piazza.com/cmu/fall2022/16822}}
+\newcommand{\hwNum}{Problem Set 4}
+\newcommand{\hwTopic}{Two View Geometry and Reconstruction}
+\newcommand{\hwName}{\hwNum: \hwTopic}
+\newcommand{\outDate}{Oct. 11, 2022}
+\newcommand{\dueDate}{Oct. 27, 2022 11:59 PM}
+\newcommand{\instructorName}{Shubham Tulsiani}
+\newcommand{\taNames}{Mosam Dabhi, Kangle Deng, Jenny Nan}
+
+%\pagestyle{fancyplain}
+\lhead{\hwName}
+\rhead{\courseNum}
+\cfoot{\thepage{} of \numpages{}}
+
+\title{\textsc{\hwName}} % Title
+
+
+\author{}
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Useful commands for typesetting the questions %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand \expect {\mathbb{E}}
+\newcommand \mle [1]{{\hat #1}^{\rm MLE}}
+\newcommand \map [1]{{\hat #1}^{\rm MAP}}
+\newcommand \argmax {\operatorname*{argmax}}
+\newcommand \argmin {\operatorname*{argmin}}
+\newcommand \code [1]{{\tt #1}}
+\newcommand \datacount [1]{\#\{#1\}}
+\newcommand \ind [1]{\mathbb{I}\{#1\}}
+
+\newcommand{\blackcircle}{\tikz\draw[black,fill=black] (0,0) circle (1ex);}
+\renewcommand{\circle}{\tikz\draw[black] (0,0) circle (1ex);}
+
+\newcommand{\pts}[1]{\textbf{[#1 pts]}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document configuration %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't display a date in the title and remove the white space
+\predate{}
+\postdate{}
+\date{}
+
+%%%%%%%%%%%%%%%%%%
+% Begin Document %
+%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\section*{}
+\begin{center}
+  \textsc{\LARGE \hwNum} \\
+%   \textsc{\LARGE \hwTopic\footnote{Compiled on \today{} at \currenttime{}}} \\
+  \vspace{1em}
+  \textsc{\large \courseNum{} \courseName{} (\courseSem)} \\
+  %\vspace{0.25em}
+  \courseUrl\\
+  \vspace{1em}
+  OUT: \outDate \\
+  DUE: \dueDate \\
+  Instructor: \instructorName \\
+  TAs: \taNames
+\end{center}
+
+\section*{START HERE: Instructions}
+\begin{itemize}
+\item \textbf{Collaboration policy:} All are encouraged to work together BUT you must do your own work (code and write up). If you work with someone, please include their name in your write up and cite any code that has been discussed. If we find highly identical write-ups or code without proper accreditation of collaborators, we will take action according to university policies, i.e. you will likely fail the course. See the \href{https://www.dropbox.com/s/z6o0tinc9eaez46/L01_Overview.pdf?dl=0}{Academic Integrity Section} detailed in the initial lecture for more information.
+
+\item\textbf{Late Submission Policy:} There are \textbf{no} late days for Problem Set submissions.
+
+\item\textbf{Submitting your work:}
+
+\begin{itemize}
+
+\item We will be using Gradescope (\url{https://gradescope.com/}) to submit the Problem Sets. Please use the provided template. Submissions can be written in LaTeX. Regrade requests can be made, however this gives the TA the opportunity to regrade your entire paper, meaning if additional mistakes are found then points will be deducted.
+Each derivation/proof should be  completed on a separate page. For short answer questions you \textbf{should} include your work in your solution.  
+\end{itemize}
+
+\item \textbf{Materials:} The data that you will need in order to complete this assignment is posted along with the writeup and template on Piazza.
+
+\end{itemize}
+
+For multiple choice or select all that apply questions, replace \lstinline{\choice} with \lstinline{\CorrectChoice} to obtain a shaded box/circle, and don't change anything else.
+
+\clearpage
+
+\section*{Instructions for Specific Problem Types}
+
+For ``Select One" questions, please fill in the appropriate bubble completely:
+
+\begin{quote}
+\textbf{Select One:} Who taught this course?
+     \begin{checkboxes}
+     \CorrectChoice Shubham Tulsiani
+     \choice Deepak Pathak
+     \choice Fernando De la Torre
+     \choice Deva Ramanan
+    \end{checkboxes}
+\end{quote}
+
+For ``Select all that apply" questions, please fill in all appropriate squares completely:
+
+\begin{quote}
+\textbf{Select all that apply:} Which are scientists?
+{
+    \checkboxchar{$\Box$} \checkedchar{$\blacksquare$}
+    \begin{checkboxes}
+     \CorrectChoice Stephen Hawking
+     \CorrectChoice Albert Einstein
+     \CorrectChoice Isaac Newton
+     \choice None of the above
+    \end{checkboxes}
+    }
+\end{quote}
+
+For questions where you must fill in a blank, please make sure your final answer is fully included in the given space. You may cross out answers or parts of answers, but the final answer must still be within the given space.
+
+\begin{quote}
+\textbf{Fill in the blank:} What is the course number?
+
+\begin{tcolorbox}[fit,height=1cm, width=4cm, blank, borderline={1pt}{-2pt},nobeforeafter, halign=center, valign=center]
+    \begin{center}\huge16-822\end{center}
+    \end{tcolorbox}\hspace{2cm}
+\end{quote}
+
+\clearpage
+
+\section{Two-view Geometry  [11 pts]}
+\begin{questions}
+
+\question \textbf{[2 pts]} Given $\Fv = \begin{bmatrix}
+2 & 0 & 0 \\ 
+0 & 3 & 1 \\ 
+4 & 6 & \xv
+\end{bmatrix}$:
+
+(a) Find $\xv$ if $\Fv$ is a valid fundamental matrix.
+
+(b) Compute epipoles $\ev$ and $\ev'$ for the computed value of $\xv$.
+
+\begin{tcolorbox}[fit,height=4.5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\question \textbf{[2 pts]} Given SVD decomposition of an essential matrix $\Ev = \Uv\Dv\Vv^T$, what is the relative translation $\tv$ between the two cameras (expressed in terms of elements of $\Uv$  and $\Vv$)?
+
+\begin{tcolorbox}[fit,height=4.5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\question \textbf{[3 pts]} Given two affine cameras $\Pv = \begin{bmatrix}
+1 & 0 & 0 & 0 \\ 
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}$ and $\Pv' = \begin{bmatrix}
+p_{11} & p_{12} & p_{13} & p_{14} \\ 
+p_{21} & p_{22} & p_{23} & p_{24} \\ 
+0 & 0 & 0 & 1
+\end{bmatrix}$, show that any two distinct epipolar lines in the second image are parallel.
+
+\begin{tcolorbox}[fit,height=4.5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+\clearpage
+\question \textbf{[4 pts]} Are these statements true or false?  
+
+(a) Given a camera with zero-skew undergoing a translation-only motion, the epipolar lines are parallel if and only if the translation compoenent along the view direction is $0$.
+
+(b) $\Fv = \Ev$ if and only if $\Kv = \Kv' = \Iv$. 
+
+(c) Assuming $\xv_1$, $\xv_2$, $\ev$ are distinct, $\xv_1$, $\xv_2$ and $\ev$ are collinear if and only if $\Fv\xv_1 = \Fv\xv_2$.
+
+(d) If the vanishing line of a plane contains the epipole, then the plane is parallel to the baseline.
+
+\begin{tcolorbox}[fit,height=4cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\section{Two-view Calibration [19 pts]}
+\question In class, we used the $8$-pt algorithm to compute $\Fv$ given correspondences of form $(\xv, \xv')$. In this question, you need to instead compute $\Fv$ using points in the first image with known corresponding epipolar lines in the second image $(\xv, \lv')$.
+
+(a) \textbf{[3 pts]} Design an algorithm to compute $\Fv$ in such case. 
+
+(b) \textbf{[1 pt]} What is the minimum number of such correspondences needed?
+
+\begin{tcolorbox}[fit,height=5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\question \textbf{[3 pts]} In the translation only case with intrinsics being unchanged, design an algorithm to compute $\Fv$ using just $2$ point correspondences.
+
+\begin{tcolorbox}[fit,height=5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\question In $8$-pt algorithm, we computed $\fv$ such that $\Av\fv = 0$, $||\fv|| = 1$, where $\Av$ is a $N \times 9$ matrix. Assuming the matrix $\Av$ is computed from perfect correspondences (i.e., without any noise), what is the rank of $\Av$ if:
+
+(a) \textbf{[1 pt]} Assuming $N >> 9$, and several points are chosen in a non-degenerate way.
+
+(b) \textbf{[2 pts]} Assuming $N >> 9$, but all points lie on a common plane in 3D space.
+
+\begin{tcolorbox}[fit,height=5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\question Consider the problem of estimating the fundamental matrix from a set of 8 correspondences $(\pv, \pv^\prime)_i~~\forall~ i \in [1, 8]$. We denote the image coordinates as $\pv = (u, v, 1)$, $\pv' = (u', v', 1)$, the fundamental matrix as $\Fv$ with each entry as $\Fv_{ij}$. Assuming $\Fv_{33} \neq 0$, we can set $\Fv_{33} = 1$, and obtain a set of 8 linear equations of the form $\Av \fv = -\vc{1}_8$, where $\vc{1}_8$ is the 8 vector of ones, $\fv = \begin{bmatrix} \Fv_{11} & \Fv_{12} & \dots & \Fv_{32} \end{bmatrix}^\top$ (note  that this $\fv$ is different from the vector used in lectures for the 8-pt algorithm -- it only has 8 elements.)
+
+(a) \textbf{[1 pts]} Express $\Av$ in terms of $(u, v)$ (expressing one row suffices).
+        
+(b) \textbf{[3 pts]} If $\Av$ is singular, show that there exists a $3 \times 3$ matrix $\Qv$ that is different from $\Fv$, such that for all $8$ correspondence, we have $\pv_i^{\prime\top} \Qv \pv_i = 0$.
+
+(c) \textbf{[3 pts]} Show that the eight points in $\mathbb{P}^3$ corresponding to $(\pv, \pv^\prime)_i~~\forall~ i \in [1, 8]$ must lie on a quadric surface. (Hint, a quadric $\Sv$ is defined by the equation $\Xv^T\Sv\Xv = 0$, where $\Sv$ is a symmetric $4 \times 4$ matrix).
+
+(d) \textbf{[2 pts]} Show that the optical centers $\Cv$ and $\Cv^\prime$ of the two cameras lie on this quadric.
+
+\begin{tcolorbox}[fit,height=12cm, width=\linewidth, blank, borderline={0.5pt}{-2pt},halign=center, nobeforeafter]
+    %studentsolution
+\end{tcolorbox}
+
+\section{Two-view Reconstruction [5 pts]}
+
+\question  Suppose $\Fv = \begin{bmatrix}
+    1 & 0 & 0\\
+    0 & 1 & 0\\
+    0 & 0 & 0
+\end{bmatrix}$, and $\Pv =[\Iv | 0 ]$:
+
+(a) \textbf{[2 pts]} Find a feasible $\Pv' = [\Mv | \mv]$.
+
+(b) \textbf{[1 pt]} Find another distinct solution for $\Pv'$.
+
+\begin{tcolorbox}[fit,height=5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\question \textbf{[2 pts]} Given two cameras, $\Kv\Rv[I | \Cv]$ and $\Kv'\Rv'[I | \Cv']$, which of these leave $\Fv$ unchanged:
+
+(a) Change $\left(\Cv, \Cv'\right)$ to $\left(\Cv / 2, \Cv' /2 \right)$.
+
+(b) Change $\left(f_x, f_y, f_x', f_y'\right)$ to $\left(f_x/2, f_y/2, f_x'/2, f_y'/2\right)$.
+
+\begin{tcolorbox}[fit,height=5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+\end{tcolorbox}
+
+\end{questions}
+
+\clearpage
+
+\textbf{Collaboration Questions} Please answer the following:
+
+\begin{enumerate}
+    \item Did you receive any help whatsoever from anyone in solving this assignment?
+    \begin{checkboxes}
+     \choice Yes
+     \choice No
+    \end{checkboxes}
+    \begin{itemize}
+        \item If you answered `Yes', give full details:
+        \item (e.g. “Jane Doe explained to me what is asked in Question 3.4”)
+    \end{itemize}
+
+    \begin{tcolorbox}[fit,height=3cm,blank, borderline={1pt}{-2pt},nobeforeafter]
+    %Input your solution here.  Do not change any of the specifications of this solution box.
+    \end{tcolorbox}
+
+    \item Did you give any help whatsoever to anyone in solving this assignment?
+    \begin{checkboxes}
+     \choice Yes
+     \choice No
+    \end{checkboxes}
+    \begin{itemize}
+        \item If you answered `Yes', give full details:
+        \item (e.g. “I pointed Joe Smith to section 2.3 since he didn’t know how to proceed with Question 2”)
+    \end{itemize}
+
+    \begin{tcolorbox}[fit,height=3cm,blank, borderline={1pt}{-2pt},nobeforeafter]
+    %Input your solution here.  Do not change any of the specifications of this solution box.
+    \end{tcolorbox}
+
+    \item Did you find or come across code that implements any part of this assignment ? 
+    \begin{checkboxes}
+     \choice Yes
+     \choice No
+    \end{checkboxes}
+    \begin{itemize}
+        \item If you answered `Yes', give full details: \underline{No}
+        \item (book \& page, URL \& location within the page, etc.).
+    \end{itemize}
+    \begin{tcolorbox}[fit,height=3cm,blank, borderline={1pt}{-2pt},nobeforeafter]
+    %Input your solution here.  Do not change any of the specifications of this solution box.
+    \end{tcolorbox}
+\end{enumerate}
+
+\end{document}
