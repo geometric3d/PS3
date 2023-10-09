@@ -1,4 +1,4 @@
-# PS4: Two View Geometry and Reconstruction
+# PS3: Two View Geometry and Reconstruction
 
 ## Instructions
 * There are `3` sections in this assignment, comprising `70 pts` in total.
