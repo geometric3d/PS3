@@ -1,0 +1,160 @@
+\section{Two-view Geometry  [11 pts]}
+\begin{questions}
+
+    \question \textbf{[2 pts]} Given $\Fv = \begin{bmatrix}
+            2 & 0 & 0   \\
+            0 & 3 & 1   \\
+            4 & 6 & \xv
+        \end{bmatrix}$:
+
+    (a) Find $\xv$ if $\Fv$ is a valid fundamental matrix.
+
+    \begin{tcolorbox}[fit,height=4.5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (b) Compute epipoles $\ev$ and $\ev'$ for the computed value of $\xv$.
+
+    \begin{tcolorbox}[fit,height=4.5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    \question \textbf{[2 pts]} Given SVD decomposition of an essential matrix $\Ev = \Uv\Dv\Vv^T$, what is the relative translation $\tv$ between the two cameras (expressed in terms of elements of $\Uv$  and $\Vv$)?
+
+    \begin{tcolorbox}[fit,height=4.5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+    \end{tcolorbox}
+    \clearpage
+
+    \question \textbf{[3 pts]} Given two affine cameras $\Pv = \begin{bmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1
+        \end{bmatrix}$ and $\Pv' = \begin{bmatrix}
+            p_{11} & p_{12} & p_{13} & p_{14} \\
+            p_{21} & p_{22} & p_{23} & p_{24} \\
+            0      & 0      & 0      & 1
+        \end{bmatrix}$, show that any two distinct epipolar lines in the second image are parallel.
+
+    \begin{tcolorbox}[fit,height=4.5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+    \end{tcolorbox}
+    \question \textbf{[4 pts]} Are these statements true or false?
+
+    (a) Given a camera with zero-skew undergoing a translation-only motion, the epipolar lines are parallel if and only if the translation compoenent along the view direction is $0$.
+
+    \begin{tcolorbox}[fit,height=2cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (b) $\Fv = \Ev$ if and only if $\Kv = \Kv' = \Iv$.
+
+    \begin{tcolorbox}[fit,height=2cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (c) Assuming $\xv_1$, $\xv_2$, $\ev$ are distinct, $\xv_1$, $\xv_2$ and $\ev$ are collinear if and only if $\Fv\xv_1 = \Fv\xv_2$.
+
+    \begin{tcolorbox}[fit,height=2cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (d) If the vanishing line of a plane contains the epipole, then the plane is parallel to the baseline.
+
+    \begin{tcolorbox}[fit,height=2cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    \clearpage
+
+    \section{Two-view Calibration [19 pts]}
+    \question In class, we used the $8$-pt algorithm to compute $\Fv$ given correspondences of form $(\xv, \xv')$. In this question, you need to instead compute $\Fv$ using points in the first image with known corresponding epipolar lines in the second image $(\xv, \lv')$.
+
+    (a) \textbf{[3 pts]} Design an algorithm to compute $\Fv$ in such case.
+
+    \begin{tcolorbox}[fit,height=5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+    \end{tcolorbox}
+
+    (b) \textbf{[1 pt]} What is the minimum number of such correspondences needed?
+
+    \begin{tcolorbox}[fit,height=3cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+    \end{tcolorbox}
+
+    \question \textbf{[3 pts]} In the translation only case with intrinsics being unchanged, design an algorithm to compute $\Fv$ using just $2$ point correspondences.
+
+    \begin{tcolorbox}[fit,height=5cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+
+
+    \end{tcolorbox}
+
+    \clearpage
+
+    \question In $8$-pt algorithm, we computed $\fv$ such that $\Av\fv = 0$, $||\fv|| = 1$, where $\Av$ is a $N \times 9$ matrix. Assuming the matrix $\Av$ is computed from perfect correspondences (i.e., without any noise), what is the rank of $\Av$ if:
+
+    (a) \textbf{[1 pt]} Assuming $N >> 9$, and several points are chosen in a non-degenerate way.
+
+    \begin{tcolorbox}[fit,height=3cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (b) \textbf{[2 pts]} Assuming $N >> 9$, but all points lie on a common plane in 3D space.
+
+    \begin{tcolorbox}[fit,height=3cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    \question Consider the problem of estimating the fundamental matrix from a set of 8 correspondences $(\pv, \pv^\prime)_i~~\forall~ i \in [1, 8]$. We denote the image coordinates as $\pv = (u, v, 1)$, $\pv' = (u', v', 1)$, the fundamental matrix as $\Fv$ with each entry as $\Fv_{ij}$. Assuming $\Fv_{33} \neq 0$, we can set $\Fv_{33} = 1$, and obtain a set of 8 linear equations of the form $\Av \fv = -\vc{1}_8$, where $\vc{1}_8$ is the 8 vector of ones, $\fv = \begin{bmatrix} \Fv_{11} & \Fv_{12} & \dots & \Fv_{32} \end{bmatrix}^\top$ (note  that this $\fv$ is different from the vector used in lectures for the 8-pt algorithm -- it only has 8 elements.)
+
+    (a) \textbf{[1 pts]} Express $\Av$ in terms of $(u, v)$ (expressing one row suffices).
+
+    \begin{tcolorbox}[fit,height=3cm, width=\linewidth, blank, borderline={0.5pt}{-2pt},halign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (b) \textbf{[3 pts]} If $\Av$ is singular, show that there exists a $3 \times 3$ matrix $\Qv$ that is different from $\Fv$, such that for all $8$ correspondence, we have $\pv_i^{\prime\top} \Qv \pv_i = 0$.
+
+    \begin{tcolorbox}[fit,height=4cm, width=\linewidth, blank, borderline={0.5pt}{-2pt},halign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    \clearpage
+
+    (c) \textbf{[3 pts]} Show that the eight points in $\mathbb{P}^3$ corresponding to $(\pv, \pv^\prime)_i~~\forall~ i \in [1, 8]$ must lie on a quadric surface. (Hint, a quadric $\Sv$ is defined by the equation $\Xv^T\Sv\Xv = 0$, where $\Sv$ is a symmetric $4 \times 4$ matrix).
+
+    \begin{tcolorbox}[fit,height=4cm, width=\linewidth, blank, borderline={0.5pt}{-2pt},halign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (d) \textbf{[2 pts]} Show that the optical centers $\Cv$ and $\Cv^\prime$ of the two cameras lie on this quadric.
+
+    \begin{tcolorbox}[fit,height=4cm, width=\linewidth, blank, borderline={0.5pt}{-2pt},halign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    \section{Two-view Reconstruction [5 pts]}
+
+    \question  Suppose $\Fv = \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 0
+        \end{bmatrix}$, and $\Pv =[\Iv | 0 ]$:
+
+    (a) \textbf{[2 pts]} Find a feasible $\Pv' = [\Mv | \mv]$.
+
+    \begin{tcolorbox}[fit,height=4cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (b) \textbf{[1 pt]} Find another distinct solution for $\Pv'$.
+
+    \begin{tcolorbox}[fit,height=3cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    \clearpage
+
+    \question \textbf{[2 pts]} Given two cameras, $\Kv\Rv[I | \Cv]$ and $\Kv'\Rv'[I | \Cv']$, which of these leave $\Fv$ unchanged:
+
+    (a) Change $\left(\Cv, \Cv'\right)$ to $\left(\Cv / 2, \Cv' /2 \right)$.
+
+    \begin{tcolorbox}[fit,height=3cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+    (b) Change $\left(f_x, f_y, f_x', f_y'\right)$ to $\left(f_x/2, f_y/2, f_x'/2, f_y'/2\right)$.
+
+    \begin{tcolorbox}[fit,height=3cm, width=\textwidth, blank, borderline={0.5pt}{-2pt},halign=left, valign=center, nobeforeafter]
+    \end{tcolorbox}
+
+\end{questions}
